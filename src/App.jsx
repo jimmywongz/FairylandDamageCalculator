@@ -74,7 +74,7 @@ export default function FairylandDamageCalculator() {
         animate={{ opacity: 1 }}
         style={{ fontSize: "1.8rem", fontWeight: "bold", marginBottom: "1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}
       >
-        <Calculator size={24} /> 童話Online 傷害計算器
+        <Calculator size={24} /> 童話Online 傷害計算器 (斧)
       </motion.h1>
 
       <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem", flexWrap: "wrap" }}>
