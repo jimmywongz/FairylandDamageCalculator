@@ -127,7 +127,7 @@ export default function FairylandDamageCalculator() {
       </div>
 
       <footer style={{ marginTop: "3rem", textAlign: "center", color: "#555", fontSize: "0.9rem" }}>
-        Special thank you to Wilson Lee
+        📝 Credit: Special thanks to Wilson Lee for providing the original formula reference
       </footer>
     </div>
   );
