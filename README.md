@@ -30,11 +30,13 @@ npm run preview
 
 ## Deploying to GitHub Pages
 
-1. Run `npm run build` to generate the static files in `dist/`.
-2. Commit the contents of `dist/` to the branch that GitHub Pages will publish (for example, `gh-pages`).
-3. Push the branch to GitHub and enable Pages in the repository settings, selecting the published branch and `/` folder.
+This repository ships with a GitHub Actions workflow that builds the site and publishes it to the `gh-pages` branch.
 
-Because the Vite configuration sets `base: "./"`, the build output works when served from a sub-path such as `https://<username>.github.io/<repo>/`.
+1. In your GitHub repository, open **Settings → Pages** and choose **GitHub Actions** as the source.
+2. Push to `main` (or trigger the `Deploy to GitHub Pages` workflow manually). The action will run `npm ci`, `npm run build`, and deploy the `dist/` folder to Pages.
+3. The site will be available at `https://<username>.github.io/FairylandDamageCalculator/`.
+
+The Vite configuration already sets `base: "/FairylandDamageCalculator/"`, so all assets resolve correctly from the project sub-path.
 
 ## Project structure
 
