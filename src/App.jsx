@@ -125,6 +125,10 @@ export default function FairylandDamageCalculator() {
         <Skill title="小火刀" data={small} />
         <Skill title="大火刀" data={big} />
       </div>
+
+      <footer style={{ marginTop: "3rem", textAlign: "center", color: "#555", fontSize: "0.9rem" }}>
+        Special thank you to Wilson Lee
+      </footer>
     </div>
   );
 }
