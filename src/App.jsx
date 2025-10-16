@@ -23,11 +23,8 @@ export default function FairylandDamageCalculator() {
   const [bonusDmg, setBonusDmg] = useState(0);
   const [petPower, setPetPower] = useState(2000);
   const [godGuardian, setGodGuardian] = useState(225);
-  const [smallFlameMult, setSmallFlameMult] = useState(2.45);
-  const [bigFlameMult, setBigFlameMult] = useState(2.55);
-  const [autoFlameByGuardian, setAutoFlameByGuardian] = useState(true);
   const [elementBonus, setElementBonus] = useState(1.5);
-  const [calib, setCalib] = useState(0);
+  const calib = 0;
 
   const presets = [
     {
@@ -54,8 +51,8 @@ export default function FairylandDamageCalculator() {
 
   const smallFlameAuto = useMemo(() => 2.32 + 0.005 * (num(godGuardian) - 225), [godGuardian]);
   const bigFlameAuto = useMemo(() => 2.42 + 0.005 * (num(godGuardian) - 225), [godGuardian]);
-  const smallFlameEff = autoFlameByGuardian ? smallFlameAuto : num(smallFlameMult);
-  const bigFlameEff = autoFlameByGuardian ? bigFlameAuto : num(bigFlameMult);
+  const smallFlameEff = smallFlameAuto;
+  const bigFlameEff = bigFlameAuto;
 
   const baseSurface = floor(num(weaponDmg) * (1 + num(axeSkill) / 50)) + num(humanPower) * 2 + num(bonusDmg);
   const surface = baseSurface;
@@ -105,12 +102,9 @@ export default function FairylandDamageCalculator() {
         <Field label="追加傷害" value={bonusDmg} onChange={setBonusDmg} />
         <Field label="武化寵力" value={petPower} onChange={setPetPower} />
         <Field label="神守等級" value={godGuardian} onChange={setGodGuardian} />
-        <Stat title="獸王倍率（含校準）" value={beastMult.toFixed(3)} />
-        <Field label={`小火刀倍率${autoFlameByGuardian ? "（自動）" : ""}`} value={Number(smallFlameEff.toFixed(2))} onChange={setSmallFlameMult} disabled={autoFlameByGuardian} />
-        <Field label={`大火刀倍率${autoFlameByGuardian ? "（自動）" : ""}`} value={Number(bigFlameEff.toFixed(2))} onChange={setBigFlameMult} disabled={autoFlameByGuardian} />
-        <Check label="根據神守自動計算火刀倍率" checked={autoFlameByGuardian} onChange={setAutoFlameByGuardian} />
+        <Field label="小火刀倍率（自動）" value={Number(smallFlameEff.toFixed(2))} onChange={() => {}} disabled fullWidth />
+        <Field label="大火刀倍率（自動）" value={Number(bigFlameEff.toFixed(2))} onChange={() => {}} disabled fullWidth />
         <Field label="屬性修正(屬剋倍率)" value={elementBonus} onChange={setElementBonus} />
-        <Field label="校準係數(加到獸王倍率)" value={calib} onChange={setCalib} />
       </div>
 
       <div style={{ marginTop: "2rem", display: "grid", gap: "1rem", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))" }}>
@@ -133,7 +127,7 @@ export default function FairylandDamageCalculator() {
   );
 }
 
-function Field({ label, value, onChange, disabled = false }) {
+function Field({ label, value, onChange, disabled = false, fullWidth = false }) {
   const handleChange = (e) => {
     const val = e.target.value;
     if (val === "") {
@@ -144,7 +138,7 @@ function Field({ label, value, onChange, disabled = false }) {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", gridColumn: fullWidth ? "1 / -1" : undefined }}>
       <label style={{ fontSize: "0.9rem", marginBottom: 4 }}>{label}</label>
       <input
         type="number"
@@ -186,11 +180,3 @@ function Skill({ title, data }) {
   );
 }
 
-function Check({ label, checked, onChange }) {
-  return (
-    <label style={{ display: "flex", alignItems: "center", gap: 8 }}>
-      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} />
-      <span style={{ fontSize: 14 }}>{label}</span>
-    </label>
-  );
-}
